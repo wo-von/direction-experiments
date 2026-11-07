@@ -1,0 +1,6 @@
+{
+  // No AI help while writing code in this repo (see README, "How we work").
+  "chat.disableAIFeatures": true,
+  "github.copilot.enable": { "*": false },
+  "editor.inlineSuggest.enabled": false
+}
