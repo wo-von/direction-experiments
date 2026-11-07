@@ -1,0 +1,67 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## What this repo is
+
+Three weekend experiments to decide the main track for Jan–Mar 2027 (Track F / D / C). They gather
+signal about what the user enjoys; they are not portfolio projects. The output that matters is the
+session notes, not the code.
+
+The plan lives in the "Direction experiments" tab under Roadmap in the *Job hunt 2026* doc
+(https://claude.ai/artifact/8x6FRYRDyZwjNtAMo38YZ5). The schedule and directories are in README.md.
+
+- `weekend-a-sgemm/`: make it faster (SGEMM in C, perf)
+- `weekend-b-accelerator/`: design it (accelerator for one layer)
+- `weekend-c-allreduce/`: cluster scale (all-reduce on loopback)
+- `notes/`: one file per session, written the same evening, from `notes/TEMPLATE.md`
+- `conversations/`: notes from talks with people working in these roles
+
+No code or build files exist yet. Each experiment directory gets its own build when its weekend starts.
+
+## Build standard (C)
+
+- Timing builds: `-O2` or `-O3 -Wall -Wextra -Wpedantic`.
+- Correctness builds: add `-fsanitize=address,undefined`. Never time a sanitizer build.
+- Build output goes in `build/` (gitignored, along with `*.o`, `*.out`, `perf.data*`).
+
+## Working rules (these override the global mentor-mode loop)
+
+The struggle with the core problem is the data being collected, so who writes what matters:
+
+- **Core work** (the kernel, the accelerator model, the all-reduce, reasoning about why it's slow):
+  the user writes and debugs it. Do not write or fix it.
+- **Concepts, readings, hardware, what a perf event counts:** answer freely.
+- **Friction that isn't the experiment** (perf permissions, compiler flags, plotting, intrinsic
+  names): help immediately.
+- **Scaffolding** (Makefile, timing and verification harness): write it when asked.
+- **Stuck on core work:** the user tries for about 30 minutes alone first, then the hint ladder
+  (question → hint → pseudocode), one rung per ask. Code only on "show me".
+- **Review after it works is light:** only what changes the result or the conclusion (wrong output,
+  untrustworthy measurement, a missed big idea). Language-lawyer nits only if they would bite, batched
+  at the end, never mid-flow.
+- **No decision tables and no DECISIONS.md.** Session notes are the only log. Raise design choices
+  only when they come up for real.
+- **Reference code** (OpenBLAS, NCCL): only at the plan step that says so.
+- **xv6 labs:** MIT 6.1810 policy as written (no AI code or debugging), plus a post-mortem review once
+  a lab passes.
+
+AI features are deliberately turned off in `.vscode/settings.json`; leave them off.
+
+## Context from the setup session (2026-11-07)
+
+Why the rules look like this, so later sessions don't re-litigate them:
+
+- **AI policy basis.** MIT 6.1810 (Fall 2026, general.html): AI may explain OS ideas, readings and the
+  given xv6 code; no AI-written lab code and no AI debugging help. CS336 (Spring 2026, honor code): LLMs
+  for low-level programming or conceptual questions only, never to solve the problem; disable AI
+  autocomplete. The rules above adapt these: since the goal is to learn what the user *likes*, AI must
+  not take over the part being tested, but should remove unrelated friction.
+- **Light review.** Earlier systems drills felt frustrating and pedantic at times. The user attributes
+  this mostly to the detail-heavy domain and the pressure of interview prep ("all in all it was not
+  bad"). So: a lighter dose for exploration, not a rejection of rigor. Interview pressure was a
+  confound; these weekends have no deadline, which makes them a cleaner test.
+- **Problem or process?** When a session is frustrating, the notes should separate frustration with
+  the problem itself from frustration with the process (tooling, review, time pressure).
+- **Editor.** Stay on VS Code (no nvim switch now: it would add friction unrelated to the experiment
+  and blur the signal). Use clangd rather than ctags; generate `compile_commands.json` from the build.
