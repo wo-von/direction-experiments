@@ -1,0 +1,6 @@
+build/
+*.o
+*.out
+perf.data*
+__pycache__/
+.ipynb_checkpoints/
