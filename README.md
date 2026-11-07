@@ -20,22 +20,3 @@ and a decision about the main track for Jan–Mar 2027.
 
 Build standard (C): `-O2`/`-O3 -Wall -Wextra -Wpedantic`; sanitizer builds
 (`-fsanitize=address,undefined`) for correctness checks only, never for timing.
-
-## How we work (Claude + me)
-
-The goal is to find out what I *like*, so the struggle with the core problem is the data. Friction that
-isn't the experiment is waste.
-
-- **Core work** (the kernel, the model, the all-reduce, reasoning about *why* it's slow): I write and
-  debug it. Claude doesn't.
-- **Concepts, readings, hardware, what a perf event counts:** ask anything.
-- **Friction that isn't the experiment** (perf permissions, flags, plotting, intrinsic names): Claude helps immediately.
-- **Scaffolding** (Makefile, timing/verification harness): Claude writes it when I ask.
-- **Stuck on core work:** ~30 min alone, then the hint ladder (question → hint → pseudocode). One rung per
-  ask; code only on "show me".
-- **Review after it works — light:** only what changes the result or the conclusion (wrong output,
-  untrustworthy measurement, a missed big idea). Language-lawyer nits only if they'd actually bite, and
-  batched at the end, never mid-flow.
-- **No decision tables or DECISIONS.md:** session notes are the only log. Design choices come up only when real.
-- **Reference code** (OpenBLAS, NCCL): only at the step that says so.
-- **xv6 labs:** MIT 6.1810 policy as written (no AI code or debugging), plus a post-mortem review once it passes.

@@ -5,3 +5,4 @@
 - **Frustration hit:** "my code doesn't work" or "I don't know what to decide"? Which one did I mind?
 - **Best moment (one line):**
 - **Monday check:** did I want to keep going?
+- **If frustrated:** was it the problem itself, or the process (tooling, review, time pressure)?
